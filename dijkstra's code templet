@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int > vect[51];
+ 
+int matrix[100][100];
+int cost[100]={0};
+ 
+typedef pair<int, int> pii;
+priority_queue<pii, vector<pii>, greater<pii> > pq;
+ 
+ 
+void BFS()
+{
+ 
+    int i,j,k;
+     pq.push(make_pair(0,0));
+ 
+ 
+ 
+int node,cos;
+ 
+    while(!pq.empty())
+    {
+         pair<int, int> top = pq.top();
+        pq.pop();
+        node=top.second;
+        cos=top.first;
+ 
+ 
+            for(i=0; i<vect[node].size(); i++)
+            {
+                int c=cos+matrix[node][vect[node][i]];
+                if( c<cost[vect[node][i]])
+                {
+ 
+                   cost[vect[node][i]]=c;
+                   pq.push(make_pair(c,vect[node][i]));
+ 
+                }
+            }
+    }
+ 
+ 
+ 
+ 
+ 
+}
+ 
+ 
+int main ()
+{
+ 
+ 
+    int p,r,n,i,j,k,l,v1,v2,costTemp;
+scanf("%d%d",&n,&r);
+ 
+ 
+    for(i=0; i<r; i++)
+    {
+        scanf("%d%d%d",&v1,&v2,&costTemp);
+ 
+        vect[v1].push_back(v2);
+        vect[v2].push_back(v1);
+        matrix[v1][v2]=costTemp;
+          matrix[v2][v1]=costTemp;
+    }
+ 
+ 
+   for(i=1;i<n;i++)
+    cost[i]=100000;
+ 
+ 
+ 
+ 
+BFS();
+ 
+ 
+ 
+puts("\ncost:\n");
+for(i=0;i<n;i++)
+printf(" %d ",cost[i]);
+puts("\ncost:\n");
+ 
+ 
+ 
+ 
+    return 0;
+}
