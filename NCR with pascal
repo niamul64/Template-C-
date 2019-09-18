@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define scInt(x,y) scanf("%d%d",&x,&y)
+int dp[1000][1000];
+int start;
+int NCR(int n,int r)
+{
+    if(dp[n][r])
+        return dp[n][r];
+    int i,j;
+    for(i=start; i<=n; i++)
+    {
+ 
+ 
+        for(j=0; j<=n; j++)
+        {
+ 
+            if(i==j){
+ 
+                dp[i][j]=1;
+ 
+            break;
+            }
+            if(j==0){
+ 
+                dp[i][j]=1;
+ 
+            continue;
+            }
+            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];
+ 
+ 
+        }
+        if(dp[n][r])
+        {
+            start=i;
+            return dp[n][r];
+        }
+    }
+}
+ 
+ 
+ 
+int main()
+{
+    start=0;
+int n,r;
+    while(scInt(n,r)!=EOF)
+    {
+ 
+ 
+        printf("NCR of %dc%d: %d\n",n,r,NCR(n,r));
+ 
+ 
+    }
+ 
+ 
+ return 0;
+}
