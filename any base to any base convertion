@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<math.h>
+
+int convert(int num,int b,int c)
+{
+    int converted_num=0,power,i,j,converted_to_decimal=0;
+    if(b!=10)
+    {
+        for(i=num,power=0; i>0; ++power,i=i/10)
+        {
+            converted_to_decimal=converted_to_decimal+((i%10)*pow(b,power));
+        }
+        num=converted_to_decimal;
+    }
+
+    for(i=num,j=1;i>0;i=i/c,j=j*10)
+    {
+        converted_num=converted_num+((i%c)*j);
+    }
+
+    return converted_num;
+}
+int main()
+{
+    int num,b,c;
+    scanf("%d%d%d",&num,&b,&c);
+    printf("%d\n",convert(num,b,c));
+
+    return 0;
+}
