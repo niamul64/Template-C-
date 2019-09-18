@@ -1,0 +1,92 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(n) scanf("%lld",&n)
+int mark[3200000];
+ 
+vector<long long> pr;//////vector of prime numbers
+ 
+bool check(int N,int pos){
+return (N & (1<<pos));
+}
+ 
+int Set(int N,int pos)
+{
+    return N=(N |(1<<pos));
+}
+ 
+void bitwise(long long n){
+long long  i,j;
+    long long lim=sqrt(n);
+    pr.push_back(2);
+ 
+    for(i=3;i<=n;i+=2){
+        if(check(mark[i/32],i%32)==0)
+        {
+ 
+            pr.push_back(i);
+            if(i<=lim)
+            {
+                for(j=i*i;j<=n;j+=2*i){
+                   mark[j/32]= Set(mark[j/32],j%32);
+ 
+        }
+   }
+  }
+ }
+}
+ 
+int main ()
+{
+    long long i,j;
+    long long n;
+    sc(n);
+    bitwise((long long)sqrt(n));
+    long long countt;
+    vector<long long> prFact;
+    vector<long long > factCount;
+    puts("\nprime factorization :\n");
+ 
+    for(i=0;i<pr.size() && pr[i]<=sqrt(n);i++) {
+       countt=0;
+       if(!(n%pr[i]))  {
+           countt++;
+           n/=pr[i];
+           while(!(n%pr[i]))         {
+               n/=pr[i];
+               countt++;
+           }
+           prFact.push_back(pr[i]);
+           factCount.push_back(countt);
+           printf("%lld ^ %lld\n",pr[i],countt);
+       }
+   }
+ 
+ 
+   if(n>1){
+    printf("%lld ^ 1\n",n);
+    prFact.push_back(n);
+    factCount.push_back(1);
+   }
+ 
+ 
+long long div=1;
+long long odd=1;
+long long even=1;
+unsigned long long sumOF=1;
+ 
+ 
+for(i=0;i<factCount.size();i++)
+{
+    sumOF*=((pow((unsigned long long)prFact[i],(unsigned long long)factCount[i]+1)-1)/(prFact[i]-1));
+    div*=(factCount[i]+1);
+    if(prFact[i]%2)
+    odd*=(factCount[i]+1);
+}
+ 
+printf("\n\n total prime factors are :  %d\n\n",prFact.size());
+printf("\n\ntotal number of divisors :  %lld\n\n",div);
+printf("\n\ntotal number of odd divisors :  %lld\n\n",odd);
+printf("\n\ntotal number of even divisors :  %lld\n\n",div-odd);
+printf("\n\nsum of :  %llu\n\n",sumOF);                                  
+return 0;      
+}
