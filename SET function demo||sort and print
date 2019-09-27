@@ -1,0 +1,122 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+set < pair<int, pair<int,string> > >setST;
+
+
+
+void fistLine()
+{
+
+    printf("-------------------------");
+
+}
+
+void OneDas()
+{
+
+    printf(" | ");
+
+}
+void firstLine()
+{
+
+    printf("Roll");
+    OneDas();
+    printf("Name      ");
+    OneDas();
+    printf("Marks\n");
+    printf("-------------------------\n");
+
+}
+
+
+void printST()
+{
+    int i;
+    set < pair<int, pair<int,string> > >:: iterator it,it2;
+
+    for(it=setST.begin(); it!=setST.end(); it++)
+    {
+
+        it2=it;
+        it2++;
+        if(it2!=setST.end() && ((*it2).first < ((*it).first)) )
+        {
+
+            printf("%4d",(*it2).second.first);
+            OneDas();
+            cout<<(*it2).second.second;
+
+            for(i=((*it2).second.second).size(); i<10; i++)
+            {
+                cout<<" ";
+            }
+            OneDas();
+            printf("%d",((-1)*((*it2).first)));
+            printf("\n");
+            printf("%4d",(*it).second.first);
+            OneDas();
+            cout<<(*it).second.second;
+
+            for(i=((*it).second.second).size(); i<10; i++)
+            {
+                cout<<" ";
+            }
+            OneDas();
+            printf("%d",((-1)*((*it).first)));
+            printf("\n");
+            setST.erase(it);
+            setST.erase(it2);
+            continue;
+
+
+
+        }
+        printf("%4d",(*it).second.first);
+        OneDas();
+        cout<<(*it).second.second;
+
+        for(i=((*it).second.second).size(); i<10; i++)
+        {
+            cout<<" ";
+        }
+        OneDas();
+        printf("%d",((-1)*((*it).first)));
+        printf("\n");
+
+
+    }
+
+
+}
+
+
+int main ()
+{
+    int i,rol,marks,j,k,cas;
+    string nam;
+    cin>>cas;
+    for(i=0; i<cas; i++)
+    {
+        cin>>rol>>nam>>marks;
+        marks=marks*(-1);
+        setST.insert(make_pair(marks,make_pair(rol,nam)));
+    }
+    firstLine();
+
+    printST();
+
+
+
+    return 0;
+}
+
+
+
+//Roll | Name       | Marks
+//-------------------------
+//   1 | kabul      | 100
+//   7 | babul      | 0
+//  20 | abul       | 0
